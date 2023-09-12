@@ -54,8 +54,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internals\DemoOverlaySettings.cs" />
-    <Compile Include="Wpf\WpfOverlayDemoExample.cs" />
-    <Compile Include="Wpf\WpfOverlayExampleDemo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
