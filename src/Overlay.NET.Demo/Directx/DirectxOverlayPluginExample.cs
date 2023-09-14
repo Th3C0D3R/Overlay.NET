@@ -28,21 +28,14 @@ namespace Overlay.NET.Demo.Directx {
 
             // For demo, show how to use settings
             var current = Settings.Current;
-            var type = GetType();
 
             if (current.UpdateRate == 0)
                 current.UpdateRate = 1000 / 60;
 
-            current.Author = GetAuthor(type);
-            current.Description = GetDescription(type);
-            current.Identifier = GetIdentifier(type);
-            current.Name = GetName(type);
-            current.Version = GetVersion(type);
-
             // File is made from above info
             Settings.Save();
             Settings.Load();
-            Console.Title = @"OverlayExample";
+            Console.Title = @"Test Overlay";
 
             OverlayWindow = new DirectXOverlayWindow(targetWindow.Handle, false);
             _watch = Stopwatch.StartNew();
@@ -84,23 +77,10 @@ namespace Overlay.NET.Demo.Directx {
             }
         }
 
-        // ReSharper disable once RedundantOverriddenMember
-        public override void Enable() {
-            _tickEngine.Interval = Settings.Current.UpdateRate.Milliseconds();
-            _tickEngine.IsTicking = true;
-            base.Enable();
-        }
-
-        // ReSharper disable once RedundantOverriddenMember
-        public override void Disable() {
-            _tickEngine.IsTicking = false;
-            base.Disable();
-        }
-
-        public override void Update() => _tickEngine.Pulse();
-
-        protected void InternalRender() {
-            if (!_watch.IsRunning) {
+        protected void InternalRender()
+        {
+            if (!_watch.IsRunning)
+            {
                 _watch.Start();
             }
 
@@ -152,13 +132,15 @@ namespace Overlay.NET.Demo.Directx {
                 _rotation = -50.0f;
             }
 
-            if (_watch.ElapsedMilliseconds > 1000) {
+            if (_watch.ElapsedMilliseconds > 1000)
+            {
                 _i = _displayFps;
                 _displayFps = 0;
                 _watch.Restart();
             }
 
-            else {
+            else
+            {
                 _displayFps++;
             }
 
@@ -166,6 +148,21 @@ namespace Overlay.NET.Demo.Directx {
 
             OverlayWindow.Graphics.EndScene();
         }
+
+        // ReSharper disable once RedundantOverriddenMember
+        public override void Enable() {
+            _tickEngine.Interval = Settings.Current.UpdateRate.Milliseconds();
+            _tickEngine.IsTicking = true;
+            base.Enable();
+        }
+
+        // ReSharper disable once RedundantOverriddenMember
+        public override void Disable() {
+            _tickEngine.IsTicking = false;
+            base.Disable();
+        }
+
+        public override void Update() => _tickEngine.Pulse();
 
         public override void Dispose() {
             OverlayWindow.Dispose();
